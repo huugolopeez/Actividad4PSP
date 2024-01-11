@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "530050128871",
+    "project_id": "actividad1hugo",
+    "storage_bucket": "actividad1hugo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530050128871:android:3169c0a0aa112487fefb42",
+        "android_client_info": {
+          "package_name": "lopez.hugo.actividad1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGxQ0VmFw2O6Zhz6OYHnV_rPoqLIV8pqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530050128871:android:6796a36c65dc9d13fefb42",
+        "android_client_info": {
+          "package_name": "lopez.hugo.actividad3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGxQ0VmFw2O6Zhz6OYHnV_rPoqLIV8pqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530050128871:android:408ef30baaae7156fefb42",
+        "android_client_info": {
+          "package_name": "lopez.hugo.actividad4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGxQ0VmFw2O6Zhz6OYHnV_rPoqLIV8pqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
