@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../custom/HLBottomMenu.dart';
 import '../custom/HLMDrawerClass.dart';
@@ -46,7 +47,7 @@ class _MHomeViewState extends State<MHomeView> {
   }
 
   void onItemTapDrawer(int index) {
-    setState(() {
+    setState(() async {
       if(index == 0) {
         FirebaseAuth.instance.signOut();
         Navigator.of(context).pushAndRemoveUntil(
@@ -55,6 +56,165 @@ class _MHomeViewState extends State<MHomeView> {
         );
       } else if(index == 1) {
         exit(0);
+      } else if(index == 2) {
+        TextEditingController _searchController = TextEditingController();
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Buscar Post por Título'),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: _searchController,
+                    decoration: const InputDecoration(
+                      hintText: 'Ingrese el título a buscar',
+                      contentPadding: EdgeInsets.all(16.0),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      String searchValue = _searchController.text.trim();
+                      if (searchValue.isNotEmpty) {
+                        Navigator.of(context).pop();
+
+                        List<Map<String, dynamic>> searchResults =
+                        await DataHolder().fbAdmin.getPostByTitle(searchValue);
+
+                        if (searchResults.isNotEmpty) {
+                          print("HE ENTRADDOOOOO");
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                    title: Text('Resultados de la Búsqueda'),
+                                    content: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          for (var result in searchResults)
+                                            Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text('título: ${result['titulo']}'),
+                                                  Text('cuerpo: ${result['cuerpo']}'),
+                                                ])
+                                        ]),
+                                    actions: [
+                                      TextButton(
+                                          child: Text('Aceptar'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          }
+                                      )]
+                                );
+                              }
+                          );
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                    title: Text('Resultados de la Búsqueda'),
+                                    content: Text('No se encontraron posts con el título proporcionado.'),
+                                    actions: [
+                                      TextButton(
+                                          child: Text('Aceptar'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          }
+                                      )]
+                                );
+                              }
+                          );
+                        }
+                      }
+                    },
+                    child: Text('Buscar'),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      } else if(index == 3) {
+        Position currentPosition = await DataHolder().geolocAdmin.registrarCambiosLoc();
+        GeoPoint currentGeoPoint = GeoPoint(currentPosition.latitude, currentPosition.longitude);
+        await DataHolder().geolocAdmin.agregarUbicacionEnFirebase(currentGeoPoint);
+        List<String> usersInRange = await DataHolder().geolocAdmin.obtenerUsuariosEnRango();
+
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: Text('Usuarios en rango de 5 km:'),
+                  content: Column(
+                      children: usersInRange
+                          .map(
+                              (userId) => Text(
+                            userId ?? 'Usuario sin ID',
+                            // 'Usuario sin ID' se mostrará si userId es nulo
+                          )).toList()
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                        child: Text('Cerrar'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        }
+                    )]
+              );
+            }
+        );
+      } else if(index == 4) {
+        String gato = await DataHolder().httpAdmin.getCatData();
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: Text('Gato'),
+                  content: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.network(gato, height: 300),
+                      ]),
+                  actions: [
+                    TextButton(
+                        child: Text('Cerrar'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        }
+                    )]
+              );
+            }
+        );
+      } else if(index == 5) {
+        String chiste = await DataHolder().httpAdmin.getDadJoke();
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: Text('Chiste'),
+                  content: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(chiste)
+                      ]),
+                  actions: [
+                    TextButton(
+                        child: Text('Cerrar'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        }
+                    )]
+              );
+            }
+        );
       }
     });
   }
