@@ -53,6 +53,90 @@ class _WHomeViewState extends State<WHomeView> {
         );
       } else if(index == 1) {
         Navigator.of(context).pushNamed('/gestionview');
+      } else if(index == 2) {
+        TextEditingController _searchController = TextEditingController();
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Buscar Post por Título'),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: _searchController,
+                    decoration: const InputDecoration(
+                      hintText: 'Ingrese el título a buscar',
+                      contentPadding: EdgeInsets.all(16.0),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      String searchValue = _searchController.text.trim();
+                      if (searchValue.isNotEmpty) {
+                        Navigator.of(context).pop();
+
+                        List<Map<String, dynamic>> searchResults =
+                        await DataHolder().fbAdmin.getPostByTitle(searchValue);
+
+                        if (searchResults.isNotEmpty) {
+                          print("HE ENTRADDOOOOO");
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Resultados de la Búsqueda'),
+                                content: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    for (var result in searchResults)
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text('título: ${result['titulo']}'),
+                                          Text('cuerpo: ${result['cuerpo']}'),
+                                        ])
+                                  ]),
+                                actions: [
+                                  TextButton(
+                                    child: Text('Aceptar'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    }
+                                  )]
+                              );
+                            }
+                          );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Resultados de la Búsqueda'),
+                                content: Text('No se encontraron posts con el título proporcionado.'),
+                                actions: [
+                                  TextButton(
+                                    child: Text('Aceptar'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    }
+                                  )]
+                              );
+                            }
+                          );
+                        }
+                      }
+                    },
+                    child: Text('Buscar'),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
       }
     });
   }

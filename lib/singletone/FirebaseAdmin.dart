@@ -22,4 +22,17 @@ class FirebaseAdmin {
 
     postRef.add(post);
   }
+
+  Future<List<Map<String, dynamic>>> getPostByTitle(String searchValue) async {
+    QuerySnapshot querySnapshot = await DataHolder().db
+        .collection('Posts')
+        .where('titulo', isGreaterThanOrEqualTo: searchValue)
+        .get();
+
+    return querySnapshot.docs
+        .where((doc) =>
+    (doc['titulo'] as String).contains(searchValue))
+        .map((doc) => doc.data() as Map<String, dynamic>)
+        .toList();
+  }
 }

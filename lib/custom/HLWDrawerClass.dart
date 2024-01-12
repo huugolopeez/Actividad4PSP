@@ -70,7 +70,16 @@ class HLWDrawerClass extends StatelessWidget {
                       'Gestion/Administracion',
                       style: TextStyle(color: Colors.white)
                   )
-              )
+              ),
+            ListTile(
+                leading: const Icon(Icons.search, color: Colors.white),
+                selectedColor: DataHolder().colorPrincipal,
+                onTap: () { onItemTap!(2); },
+                title: const Text(
+                    'Buscar Post',
+                    style: TextStyle(color: Colors.white)
+                )
+            )
             ])
     );
   }
