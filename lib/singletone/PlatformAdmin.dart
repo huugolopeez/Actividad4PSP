@@ -39,7 +39,7 @@ class PlatformAdmin {
 
     switch (platform) {
       case 0:
-        return 'Roboto';
+        return 'Oswald';
       case 1:
         return 'Oswald';
       case 2:
