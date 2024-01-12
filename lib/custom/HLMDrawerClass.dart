@@ -108,7 +108,6 @@ class HLMDrawerClass extends StatelessWidget {
                   )
               )
             ])
-            ])
 
     );
   }
