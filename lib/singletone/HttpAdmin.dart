@@ -15,4 +15,21 @@ class HttpAdmin {
       throw Exception('Error al obtener datos de gatos');
     }
   }
+
+  Future<String> getDadJoke() async {
+    final apiUrl = 'https://icanhazdadjoke.com/';
+
+    final response = await http.get(
+      Uri.parse(apiUrl),
+      headers: {'Accept': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      final String joke = data['joke'];
+      return('Chiste de padre: \n$joke');
+    } else {
+      throw Exception('Error al obtener el chiste del papá');
+    }
+  }
 }

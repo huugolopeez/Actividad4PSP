@@ -155,20 +155,17 @@ class _WHomeViewState extends State<WHomeView> {
                       (userId) => Text(
                     userId ?? 'Usuario sin ID',
                     // 'Usuario sin ID' se mostrará si userId es nulo
-                  ),
-                )
-                    .toList(),
+                  )).toList()
               ),
               actions: <Widget>[
                 TextButton(
                   child: Text('Cerrar'),
                   onPressed: () {
                     Navigator.of(context).pop();
-                  },
-                ),
-              ],
+                  }
+                )]
             );
-          },
+          }
         );
       } else if(index == 4) {
         String gato = await DataHolder().httpAdmin.getCatData();
@@ -182,18 +179,39 @@ class _WHomeViewState extends State<WHomeView> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.network(gato, height: 300),
-                ],
-              ),
+                ]),
               actions: [
                 TextButton(
                   child: Text('Cerrar'),
                   onPressed: () {
                     Navigator.of(context).pop();
-                  },
-                ),
-              ],
+                  }
+                )]
             );
-          },
+          }
+        );
+      } else if(index == 5) {
+        String chiste = await DataHolder().httpAdmin.getDadJoke();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Chiste'),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(chiste)
+                ]),
+              actions: [
+                TextButton(
+                  child: Text('Cerrar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }
+                )]
+            );
+          }
         );
       }
     });

@@ -97,6 +97,15 @@ class HLWDrawerClass extends StatelessWidget {
                       'Gatos api',
                       style: TextStyle(color: Colors.white)
                   )
+              ),
+              ListTile(
+                  leading: const Icon(Icons.abc_outlined, color: Colors.white),
+                  selectedColor: DataHolder().colorPrincipal,
+                  onTap: () { onItemTap!(5); },
+                  title: const Text(
+                      'Chistes de padre api',
+                      style: TextStyle(color: Colors.white)
+                  )
               )
             ])
     );
