@@ -70,8 +70,46 @@ class HLMDrawerClass extends StatelessWidget {
                       'Salir de la aplicacion',
                       style: TextStyle(color: Colors.white)
                   )
+              ),
+              ListTile(
+                  leading: const Icon(Icons.search, color: Colors.white),
+                  selectedColor: DataHolder().colorPrincipal,
+                  onTap: () { onItemTap!(2); },
+                  title: const Text(
+                      'Buscar Post',
+                      style: TextStyle(color: Colors.white)
+                  )
+              ),
+              ListTile(
+                  leading: const Icon(Icons.location_on_rounded, color: Colors.white),
+                  selectedColor: DataHolder().colorPrincipal,
+                  onTap: () { onItemTap!(3); },
+                  title: const Text(
+                      'Usuarios a 5km',
+                      style: TextStyle(color: Colors.white)
+                  )
+              ),
+              ListTile(
+                  leading: const Icon(Icons.image, color: Colors.white),
+                  selectedColor: DataHolder().colorPrincipal,
+                  onTap: () { onItemTap!(4); },
+                  title: const Text(
+                      'Gatos api',
+                      style: TextStyle(color: Colors.white)
+                  )
+              ),
+              ListTile(
+                  leading: const Icon(Icons.abc_outlined, color: Colors.white),
+                  selectedColor: DataHolder().colorPrincipal,
+                  onTap: () { onItemTap!(5); },
+                  title: const Text(
+                      'Chistes de padre api',
+                      style: TextStyle(color: Colors.white)
+                  )
               )
             ])
+            ])
+
     );
   }
 }
