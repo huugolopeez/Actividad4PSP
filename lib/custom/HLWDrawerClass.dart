@@ -79,7 +79,16 @@ class HLWDrawerClass extends StatelessWidget {
                     'Buscar Post',
                     style: TextStyle(color: Colors.white)
                 )
-            )
+            ),
+              ListTile(
+                  leading: const Icon(Icons.search, color: Colors.white),
+                  selectedColor: DataHolder().colorPrincipal,
+                  onTap: () { onItemTap!(3); },
+                  title: const Text(
+                      'Mapa',
+                      style: TextStyle(color: Colors.white)
+                  )
+              )
             ])
     );
   }

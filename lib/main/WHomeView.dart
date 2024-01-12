@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../custom/HLBottomMenu.dart';
 import '../custom/HLPostCellView.dart';
@@ -44,7 +45,7 @@ class _WHomeViewState extends State<WHomeView> {
   }
 
   void onItemTapDrawer(int index) {
-    setState(() {
+    setState(() async {
       if(index == 0) {
         FirebaseAuth.instance.signOut();
         Navigator.of(context).pushAndRemoveUntil(
@@ -134,6 +135,38 @@ class _WHomeViewState extends State<WHomeView> {
                   ),
                 ],
               ),
+            );
+          },
+        );
+      } else if(index == 3) {
+        Position currentPosition = await DataHolder().geolocAdmin.registrarCambiosLoc();
+        GeoPoint currentGeoPoint = GeoPoint(currentPosition.latitude, currentPosition.longitude);
+        await DataHolder().geolocAdmin.agregarUbicacionEnFirebase(currentGeoPoint);
+        List<String> usersInRange = await DataHolder().geolocAdmin.obtenerUsuariosEnRango();
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Usuarios en rango de 5 km:'),
+              content: Column(
+                children: usersInRange
+                    .map(
+                      (userId) => Text(
+                    userId ?? 'Usuario sin ID',
+                    // 'Usuario sin ID' se mostrará si userId es nulo
+                  ),
+                )
+                    .toList(),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Cerrar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
             );
           },
         );

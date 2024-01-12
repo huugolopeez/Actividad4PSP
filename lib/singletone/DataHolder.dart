@@ -1,3 +1,4 @@
+import 'package:actividad4/singletone/GeolocAdmin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +15,7 @@ class DataHolder {
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirebaseAdmin fbAdmin = FirebaseAdmin();
   PlatformAdmin plAdmin = PlatformAdmin();
+  GeolocAdmin geolocAdmin = GeolocAdmin();
 
   late Color colorFondo;
   late Color colorPrincipal;
