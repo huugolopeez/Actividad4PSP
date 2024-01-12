@@ -1,4 +1,5 @@
 import 'package:actividad4/singletone/GeolocAdmin.dart';
+import 'package:actividad4/singletone/HttpAdmin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,6 +17,7 @@ class DataHolder {
   FirebaseAdmin fbAdmin = FirebaseAdmin();
   PlatformAdmin plAdmin = PlatformAdmin();
   GeolocAdmin geolocAdmin = GeolocAdmin();
+  HttpAdmin httpAdmin = HttpAdmin();
 
   late Color colorFondo;
   late Color colorPrincipal;

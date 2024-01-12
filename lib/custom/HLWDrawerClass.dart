@@ -81,11 +81,20 @@ class HLWDrawerClass extends StatelessWidget {
                 )
             ),
               ListTile(
-                  leading: const Icon(Icons.search, color: Colors.white),
+                  leading: const Icon(Icons.location_on_rounded, color: Colors.white),
                   selectedColor: DataHolder().colorPrincipal,
                   onTap: () { onItemTap!(3); },
                   title: const Text(
-                      'Mapa',
+                      'Usuarios a 5km',
+                      style: TextStyle(color: Colors.white)
+                  )
+              ),
+              ListTile(
+                  leading: const Icon(Icons.image, color: Colors.white),
+                  selectedColor: DataHolder().colorPrincipal,
+                  onTap: () { onItemTap!(4); },
+                  title: const Text(
+                      'Gatos api',
                       style: TextStyle(color: Colors.white)
                   )
               )

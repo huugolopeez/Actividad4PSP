@@ -170,6 +170,31 @@ class _WHomeViewState extends State<WHomeView> {
             );
           },
         );
+      } else if(index == 4) {
+        String gato = await DataHolder().httpAdmin.getCatData();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Gato'),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.network(gato, height: 300),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  child: Text('Cerrar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
       }
     });
   }
